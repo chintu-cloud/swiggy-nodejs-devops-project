@@ -259,6 +259,46 @@ d7fb19de4101700db4036103acb17bdbaa480b0a3029dde84e3159b73d588669
 
 A Node.js + Express application deployed with Docker, GitHub Actions CI/CD, and optional Nginx reverse proxy.
 
+Here’s a polished **file structure layout** for your `swiggy-nodejs-devops-project`. I’ve styled it cleanly so you can drop it into your README or docs 👇  
+
+
+# 📂 Project File Structure
+
+swiggy-nodejs-devops-project/
+├── app.js                  # Main Node.js + Express application entrypoint
+├── package.json            # Project metadata and dependencies
+├── package-lock.json       # Auto-generated lock file for exact dependency versions
+├── Dockerfile              # Docker build instructions (production-ready)
+├── docker-compose.yml      # (Optional) Compose file for multi-service setup
+├── README.md               # Deployment guide and documentation
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Actions CI/CD pipeline configuration
+├── nginx.conf              # (Optional) Reverse proxy configuration for Nginx
+├── public/                 # Static assets (CSS, JS, images)
+├── routes/                 # Express route handlers
+├── controllers/            # Business logic for routes
+├── models/                 # Database models (if using MongoDB, MySQL, etc.)
+├── config/                 # Configuration files (DB, environment variables)
+└── node_modules/           # Installed dependencies (auto-generated, ignored in .gitignore)
+```
+
+---
+
+## 📝 Notes
+- **app.js** → Entry point for Express server.  
+- **package.json** → Defines dependencies and scripts (`npm start`).  
+- **Dockerfile** → Builds container image for deployment.  
+- **docker-compose.yml** → Useful if adding DB, cache, or multiple services.  
+- **.github/workflows/deploy.yml** → Automates CI/CD pipeline with Docker Hub push.  
+- **nginx.conf** → Reverse proxy setup for production (optional).  
+- **public/** → Static files served by Express.  
+- **routes/**, **controllers/**, **models/** → Organized MVC-style structure for scalability.  
+- **config/** → Centralized configuration management.  
+
+
+
+
 ---
 
 ## ✅ STEP-BY-STEP DEPLOYMENT GUIDE (Node.js + Express + Docker + GitHub + CI/CD)
