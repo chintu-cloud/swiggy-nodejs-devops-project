@@ -264,23 +264,17 @@ Here’s a polished **file structure layout** for your `swiggy-nodejs-devops-pro
 
 # 📂 Project File Structure
 ```
+
+
 swiggy-nodejs-devops-project/
-├── app.js                  # Main Node.js + Express application entrypoint
-├── package.json            # Project metadata and dependencies
+├── Dockerfile              # Docker build instructions
+├── README.md               # Documentation and deployment guide
+├── package.json            # Node.js project metadata and dependencies
 ├── package-lock.json       # Auto-generated lock file for exact dependency versions
-├── Dockerfile              # Docker build instructions (production-ready)
-├── docker-compose.yml      # (Optional) Compose file for multi-service setup
-├── README.md               # Deployment guide and documentation
-├── .github/
-│   └── workflows/
-│       └── deploy.yml      # GitHub Actions CI/CD pipeline configuration
-├── nginx.conf              # (Optional) Reverse proxy configuration for Nginx
+├── Kubernetes/             # Kubernetes manifests for deployment
+├── Photos/                 # Project-related images/screenshots
 ├── public/                 # Static assets (CSS, JS, images)
-├── routes/                 # Express route handlers
-├── controllers/            # Business logic for routes
-├── models/                 # Database models (if using MongoDB, MySQL, etc.)
-├── config/                 # Configuration files (DB, environment variables)
-└── node_modules/           # Installed dependencies (auto-generated, ignored in .gitignore)
+└── src/                    # Application source code (Node.js + Express)
 ```
 
 ---
