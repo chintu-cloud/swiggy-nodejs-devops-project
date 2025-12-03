@@ -263,7 +263,7 @@ Here’s a polished **file structure layout** for your `swiggy-nodejs-devops-pro
 
 
 # 📂 Project File Structure
-
+```
 swiggy-nodejs-devops-project/
 ├── app.js                  # Main Node.js + Express application entrypoint
 ├── package.json            # Project metadata and dependencies
