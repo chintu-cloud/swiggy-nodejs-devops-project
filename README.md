@@ -199,11 +199,9 @@ Receiving objects: 100% (92/92), 1.80 MiB | 76.67 MiB/s, done.
 Resolving deltas: 100% (25/25), done.
 [root@ip-172-31-11-187 ~]# ls
 docker_python_flask-project  swiggy-nodejs-devops-project
-[root@ip-172-31-11-187 ~]# cd ^C
 [root@ip-172-31-11-187 ~]# cd swiggy-nodejs-devops-project
 [root@ip-172-31-11-187 swiggy-nodejs-devops-project]# ls
 Dockerfile  Kubernetes  Photos  README.md  package-lock.json  package.json  public  src
-[root@ip-172-31-11-187 swiggy-nodejs-devops-project]# vi dockerfile
 [root@ip-172-31-11-187 swiggy-nodejs-devops-project]# docker build -t swiggy-nodejs-app .
 [+] Building 26.0s (11/11) FINISHED                                                                                                      docker:default
  => [internal] load build definition from Dockerfile                                                                                               0.0s
@@ -243,7 +241,14 @@ d7fb19de4101700db4036103acb17bdbaa480b0a3029dde84e3159b73d588669
 [root@ip-172-31-11-187 swiggy-nodejs-devops-project]#
   ```
 
+# copy instance pubic ip with port no.
+        <public IP>:port number
+         100.126.28.212:3000     
 
+
+      --> then enter
+  <img width="1917" height="973" alt="Screenshot 2025-12-03 165721" src="https://github.com/user-attachments/assets/7ad372be-e984-4ed8-a61d-d5178ad93af3" />
+    
 
  
 
