@@ -428,7 +428,7 @@ Dockerfile  Kubernetes  Photos  README.md  package-lock.json  package.json  publ
  => => exporting layers                                                                                                                            2.1s 
  => => writing image sha256:3784f9a2cf74b04915cf5354e75cd9a2529b6cdf60c91cf2381c0c79ecfaa841                                                       0.0s 
  => => naming to docker.io/library/swiggy-nodejs-app                                                                                               0.0s 
-[root@ip-172-31-11-187 swiggy-nodejs-devops-project]# docker run -d -p 3000:3000 swiggy-nodejs-app                                                                                                                                                        
+[root@ip-172-31-11-187 swiggy-nodejs-devops-project]# docker run -dt -p 3000:3000 swiggy-nodejs-app                                                                                                                                                        
 d7fb19de4101700db4036103acb17bdbaa480b0a3029dde84e3159b73d588669
 [root@ip-172-31-11-187 swiggy-nodejs-devops-project]# vi dockerfile
 [root@ip-172-31-11-187 swiggy-nodejs-devops-project]#
