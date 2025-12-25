@@ -1,3 +1,196 @@
+
+# 🚀 Swiggy Node.js DevOps Project
+
+A Node.js + Express application deployed with Docker, GitHub Actions CI/CD, and optional Nginx reverse proxy.
+
+Here’s a polished **file structure layout** for your `swiggy-nodejs-devops-project`. I’ve styled it cleanly so you can drop it into your README or docs 👇  
+
+
+# 📂 Project File Structure
+```
+
+
+swiggy-nodejs-devops-project/
+├── Dockerfile              # Docker build instructions
+├── README.md               # Documentation and deployment guide
+├── package.json            # Node.js project metadata and dependencies
+├── package-lock.json       # Auto-generated lock file for exact dependency versions
+├── Kubernetes/             # Kubernetes manifests for deployment
+├── Photos/                 # Project-related images/screenshots
+├── public/                 # Static assets (CSS, JS, images)
+└── src/                    # Application source code (Node.js + Express)
+```
+
+---
+
+## 📝 Notes
+- **app.js** → Entry point for Express server.  
+- **package.json** → Defines dependencies and scripts (`npm start`).  
+- **Dockerfile** → Builds container image for deployment.  
+- **docker-compose.yml** → Useful if adding DB, cache, or multiple services.  
+- **.github/workflows/deploy.yml** → Automates CI/CD pipeline with Docker Hub push.  
+- **nginx.conf** → Reverse proxy setup for production (optional).  
+- **public/** → Static files served by Express.  
+- **routes/**, **controllers/**, **models/** → Organized MVC-style structure for scalability.  
+- **config/** → Centralized configuration management.  
+
+
+
+
+---
+
+## ✅ STEP-BY-STEP DEPLOYMENT GUIDE (Node.js + Express + Docker + GitHub + CI/CD)
+
+---
+
+### **1️⃣ Install required tools**
+- On Local Machine: Node.js & npm, Git, Docker, Docker Compose (optional).  
+- On Server (AWS / Azure / GCP / VPS): Docker, Git (optional), SSH access.  
+
+---
+
+### **2️⃣ Clone Your Project**
+```bash
+git clone https://github.com/CloudTechDevOps/swiggy-nodejs-devops-project.git && cd swiggy-nodejs-devops-project
+```
+(Use personal token if private repo).  
+
+---
+
+### **3️⃣ Install Node.js Dependencies**
+```bash
+npm install
+```
+Test locally:  
+```bash
+npm start
+```
+
+---
+
+### **4️⃣ Create a Production-Ready Dockerfile**
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+---
+
+### **5️⃣ Build Docker Image**
+```bash
+docker build -t swiggy-nodejs-app .
+```
+
+---
+
+### **6️⃣ Run Docker Container**
+```bash
+docker run -d -p 3000:3000 swiggy-nodejs-app
+```
+Access: `http://localhost:3000`
+
+---
+
+### **7️⃣ Push Docker Image to Docker Hub**
+```bash
+docker login
+docker tag swiggy-nodejs-app yourdockerid/swiggy-nodejs-app:latest
+docker push yourdockerid/swiggy-nodejs-app:latest
+```
+
+---
+
+### **8️⃣ Deploy on Server (EC2 / VPS / Cloud)**
+```bash
+ssh ubuntu@your-server-ip
+sudo apt update && sudo apt install docker.io -y
+docker pull yourdockerid/swiggy-nodejs-app:latest
+docker run -d -p 3000:3000 yourdockerid/swiggy-nodejs-app:latest
+```
+Access: `http://SERVER-IP:3000`
+
+---
+
+### **9️⃣ Add Reverse Proxy (Nginx) – Optional**
+```bash
+sudo apt install nginx -y
+sudo nano /etc/nginx/sites-available/default
+```
+Add config:
+```nginx
+server {
+    listen 80;
+    location / {
+        proxy_pass http://localhost:3000;
+    }
+}
+```
+Restart:
+```bash
+sudo systemctl restart nginx
+```
+Now app is available on port **80**.
+
+---
+
+### **🔟 Setup CI/CD Pipeline (GitHub Actions)**
+Create `.github/workflows/deploy.yml`:
+```yaml
+name: Swiggy Node App CI/CD
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build Docker Image
+      run: docker build -t swiggy-nodejs-app .
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASS }}
+    - name: Push Image
+      run: |
+        docker tag swiggy-nodejs-app yourdockerid/swiggy-nodejs-app:latest
+        docker push yourdockerid/swiggy-nodejs-app:latest
+```
+
+---
+
+### **1️⃣1️⃣ Auto-Deploy on Server (Pull Latest Image)**
+Edit cron job:
+```bash
+crontab -e
+```
+Add:
+```bash
+*/5 * * * * docker pull yourdockerid/swiggy-nodejs-app:latest && docker stop swiggy && docker rm swiggy && docker run -d --name swiggy -p 3000:3000 yourdockerid/swiggy-nodejs-app:latest
+```
+This pulls latest image every 5 minutes and redeploys automatically.
+
+---
+
+## 🎉 Your Swiggy Node.js DevOps Project is Fully Deployed!
+
+---
+
+## 🔧 Optional Enhancements
+- Docker Compose version  
+- Kubernetes deployment  
+- Jenkins CI/CD pipeline  
+- PM2 production configuration  
+- Nginx + SSL (HTTPS) setup  
+
+---
 # 🌐 Connect to Your AWS EC2 Instance
   ```
    ,     #_
@@ -253,198 +446,3 @@ d7fb19de4101700db4036103acb17bdbaa480b0a3029dde84e3159b73d588669
  
 
 ---
-
-
-# 🚀 Swiggy Node.js DevOps Project
-
-A Node.js + Express application deployed with Docker, GitHub Actions CI/CD, and optional Nginx reverse proxy.
-
-Here’s a polished **file structure layout** for your `swiggy-nodejs-devops-project`. I’ve styled it cleanly so you can drop it into your README or docs 👇  
-
-
-# 📂 Project File Structure
-```
-
-
-swiggy-nodejs-devops-project/
-├── Dockerfile              # Docker build instructions
-├── README.md               # Documentation and deployment guide
-├── package.json            # Node.js project metadata and dependencies
-├── package-lock.json       # Auto-generated lock file for exact dependency versions
-├── Kubernetes/             # Kubernetes manifests for deployment
-├── Photos/                 # Project-related images/screenshots
-├── public/                 # Static assets (CSS, JS, images)
-└── src/                    # Application source code (Node.js + Express)
-```
-
----
-
-## 📝 Notes
-- **app.js** → Entry point for Express server.  
-- **package.json** → Defines dependencies and scripts (`npm start`).  
-- **Dockerfile** → Builds container image for deployment.  
-- **docker-compose.yml** → Useful if adding DB, cache, or multiple services.  
-- **.github/workflows/deploy.yml** → Automates CI/CD pipeline with Docker Hub push.  
-- **nginx.conf** → Reverse proxy setup for production (optional).  
-- **public/** → Static files served by Express.  
-- **routes/**, **controllers/**, **models/** → Organized MVC-style structure for scalability.  
-- **config/** → Centralized configuration management.  
-
-
-
-
----
-
-## ✅ STEP-BY-STEP DEPLOYMENT GUIDE (Node.js + Express + Docker + GitHub + CI/CD)
-
----
-
-### **1️⃣ Install required tools**
-- On Local Machine: Node.js & npm, Git, Docker, Docker Compose (optional).  
-- On Server (AWS / Azure / GCP / VPS): Docker, Git (optional), SSH access.  
-
----
-
-### **2️⃣ Clone Your Project**
-```bash
-git clone https://github.com/CloudTechDevOps/swiggy-nodejs-devops-project.git && cd swiggy-nodejs-devops-project
-```
-(Use personal token if private repo).  
-
----
-
-### **3️⃣ Install Node.js Dependencies**
-```bash
-npm install
-```
-Test locally:  
-```bash
-npm start
-```
-
----
-
-### **4️⃣ Create a Production-Ready Dockerfile**
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install --production
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
----
-
-### **5️⃣ Build Docker Image**
-```bash
-docker build -t swiggy-nodejs-app .
-```
-
----
-
-### **6️⃣ Run Docker Container**
-```bash
-docker run -d -p 3000:3000 swiggy-nodejs-app
-```
-Access: `http://localhost:3000`
-
----
-
-### **7️⃣ Push Docker Image to Docker Hub**
-```bash
-docker login
-docker tag swiggy-nodejs-app yourdockerid/swiggy-nodejs-app:latest
-docker push yourdockerid/swiggy-nodejs-app:latest
-```
-
----
-
-### **8️⃣ Deploy on Server (EC2 / VPS / Cloud)**
-```bash
-ssh ubuntu@your-server-ip
-sudo apt update && sudo apt install docker.io -y
-docker pull yourdockerid/swiggy-nodejs-app:latest
-docker run -d -p 3000:3000 yourdockerid/swiggy-nodejs-app:latest
-```
-Access: `http://SERVER-IP:3000`
-
----
-
-### **9️⃣ Add Reverse Proxy (Nginx) – Optional**
-```bash
-sudo apt install nginx -y
-sudo nano /etc/nginx/sites-available/default
-```
-Add config:
-```nginx
-server {
-    listen 80;
-    location / {
-        proxy_pass http://localhost:3000;
-    }
-}
-```
-Restart:
-```bash
-sudo systemctl restart nginx
-```
-Now app is available on port **80**.
-
----
-
-### **🔟 Setup CI/CD Pipeline (GitHub Actions)**
-Create `.github/workflows/deploy.yml`:
-```yaml
-name: Swiggy Node App CI/CD
-on:
-  push:
-    branches: [ "main" ]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Build Docker Image
-      run: docker build -t swiggy-nodejs-app .
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASS }}
-    - name: Push Image
-      run: |
-        docker tag swiggy-nodejs-app yourdockerid/swiggy-nodejs-app:latest
-        docker push yourdockerid/swiggy-nodejs-app:latest
-```
-
----
-
-### **1️⃣1️⃣ Auto-Deploy on Server (Pull Latest Image)**
-Edit cron job:
-```bash
-crontab -e
-```
-Add:
-```bash
-*/5 * * * * docker pull yourdockerid/swiggy-nodejs-app:latest && docker stop swiggy && docker rm swiggy && docker run -d --name swiggy -p 3000:3000 yourdockerid/swiggy-nodejs-app:latest
-```
-This pulls latest image every 5 minutes and redeploys automatically.
-
----
-
-## 🎉 Your Swiggy Node.js DevOps Project is Fully Deployed!
-
----
-
-## 🔧 Optional Enhancements
-- Docker Compose version  
-- Kubernetes deployment  
-- Jenkins CI/CD pipeline  
-- PM2 production configuration  
-- Nginx + SSL (HTTPS) setup  
-
----
-
